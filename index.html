@@ -69,21 +69,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="log">Console Log</button>
+      <button id="error">Console Error</button>
+      <button id="count">Console Count</button>
+      <button id="warn">Console Warn</button>
+      <button id="assert">Console Assert</button>
+      <button id="clear">Console Clear</button>
+      <button id="dir">Console Dir</button>
+      <button id="dirxml">Console dirxml</button>
+      <button id="start">Console Group Start</button>
+      <button id="end">Console Group End</button>
+      <button id="table">Console Table</button>
+      <button id="timer">Start Timer</button>
+      <button id="end-timer">End Timer</button>
+      <button id="trace">Console Trace</button>
+      <button id="global">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -99,9 +99,79 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+    let label = "Song recs";
 
     // Start your code here
     // You may move this JS to another file if you wish
+    document.getElementById("log").addEventListener("click", () => {
+        console.log("Hello I am the console log button!");
+    });
+    document.getElementById("error").addEventListener("click", () => {
+        console.error("Ruh roh");
+    });
+    document.getElementById("count").addEventListener("click", () => {
+        console.count("times pressed");
+    });
+    document.getElementById("warn").addEventListener("click", () => {
+        console.warn("Watch out buddy");
+    });
+    document.getElementById("assert").addEventListener("click", () => {
+        console.assert(true == false, (true, false, "true is not false"));
+    });
+    document.getElementById("clear").addEventListener("click", () => {
+        console.clear();
+    });
+    document.getElementById("dir").addEventListener("click", () => {
+        console.dir(document.head);
+    });
+    document.getElementById("dirxml").addEventListener("click", () => {
+        console.dirxml(document);
+    });
+    document.getElementById("start").addEventListener("click", () => {
+        console.group(label);
+        console.info("Linger - Poppy");
+        console.info("Angry - boa");
+        console.info("Prime Mover - Ghost");
+        console.info("Cheerleader - Ashnikko")
+    });
+    document.getElementById("end").addEventListener("click", () => {
+        console.groupEnd(label);
+    });
+    document.getElementById("table").addEventListener("click", () => {
+        let profs = [
+          {
+            first: "Thomas",
+            last: "Powell",
+            course: "CSE 110"
+          },
+          {
+            first: "Nadia",
+            last: "Polikarpova",
+            course: "CSE 130"
+          },
+          {
+            first: "Miles",
+            last: "Jones",
+            course: "CSE 101"
+          }
+        ]
+        console.table(profs);
+    });
+    document.getElementById("timer").addEventListener("click", () => {
+        console.time();
+    });
+    document.getElementById("end-timer").addEventListener("click", () => {
+        console.timeEnd();
+    });
+    document.getElementById("trace").addEventListener("click", () => {
+        const fun1 = () => { fun2(); };
+        const fun2 = () => { fun3(); };
+        const fun3 = () => { console.trace(); };
+        fun1();
+    });
+    document.getElementById("global").addEventListener("click", () => {
+        console.timeEnd();
+    });
   </script>
 </body>
 
