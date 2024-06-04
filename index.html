@@ -87,6 +87,14 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "468ee57307d6488d850469bd99f05c53"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                          
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -95,7 +103,13 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try {
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (error) {
+        throw error;
+      } finally {
+        console.log("Tip: use numbers next time");
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -169,8 +183,26 @@
         const fun3 = () => { console.trace(); };
         fun1();
     });
+
+    class MyCustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "MyCustomError";
+      }
+    }
+
     document.getElementById("global").addEventListener("click", () => {
-        console.timeEnd();
+        try {
+          throw new MyCustomError("oh no");
+        } catch (error) {
+          if (error instanceof MyCustomError) {
+            console.error("Custom error in global button:", error);
+          } else {
+            throw error;
+          }
+        } finally {
+          console.log("That was so sad");
+        }
     });
   </script>
 </body>
